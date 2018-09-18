@@ -2,6 +2,7 @@ package tsi.stanislaw.gmn;
 
 class GameResult {
     int triesCount;
-    String userNames;
+    String userName;
     long userTime;
+    long userScore;
 }
