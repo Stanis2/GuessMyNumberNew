@@ -49,7 +49,7 @@ public class Main {
                         r.userName = userName;
                         r.triesCount = i;
                         r.userTime = (t2 - t1);
-                        r.userScore = i * 100 + (t2 - t1) / 1000;
+                        r.userScore = 1000 - (i*10 + ((t2 - t1) / 100));
                         results.add(r);
                         results.sort(Comparator.<GameResult>comparingLong(r0 -> r0.userScore).reversed());
                         break;
