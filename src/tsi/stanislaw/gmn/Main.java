@@ -49,7 +49,7 @@ public class Main {
                         r.userName = userName;
                         r.triesCount = i;
                         r.userTime = (t2 - t1);
-                        r.userScore = 1000 - (i*10 + ((t2 - t1) / 100));
+                        r.userScore = 1000 - (i * 10 + (t2 - t1) / 1000);
                         results.add(r);
                         results.sort(Comparator.<GameResult>comparingLong(r0 -> r0.userScore).reversed());
                         break;
@@ -108,12 +108,35 @@ public class Main {
 //    }
 
     private static void showResults() {
+        int maxLength = findMaxLength();
         results.stream()
                 .sorted(Comparator.<GameResult>comparingLong(r -> r.userScore).reversed())
                 .limit(5)
                 .forEach(r -> {
-                    System.out.printf("%s %d tries %d seconds %d score\n", r.userName, r.triesCount, r.userTime/1000, r.userScore);
+                    System.out.print(r.userName);
+                    for (int i = 0; i < (maxLength - r.userName.length()); i++) {
+                        System.out.print(" ");
+                    }
+                    System.out.printf("%d tries %d seconds %d score\n", r.triesCount, r.userTime/1000, r.userScore);
                 });
+    }
+
+//    private static int findMaxLength() {
+//        int result = 0;
+//        for (GameResult r : results) {
+//            if (result < r.userName.length()) {
+//                result = r.userName.length();
+//            }
+//        }
+//        return result;
+//    }
+
+    private static int findMaxLength() {
+        return results.stream()
+                .map(r -> r.userName)
+                .map(n -> n.length())
+                .max(Comparator.naturalOrder())
+                .get();
     }
 
     private static String ask() {
